@@ -1,0 +1,126 @@
+ul { padding-inline-start: 0; }
+
+#title {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+h1 {
+  font-size: 5em;
+  text-align: center;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.city-menu {
+  margin-top: 40px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#filters {
+  width: 50%;
+  margin: 20px auto;
+}
+
+#filter-checkboxes {
+  list-style-type: none;
+  margin-top: 0;
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+#events {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 70%;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+.item:not(.disabled) > a:hover, a:focus, a:active {
+  color: #999;
+  text-decoration: none;
+
+}
+
+.item > a {
+  text-decoration: none;
+  position: relative;
+  display: block;
+  padding: 16px 0;
+  letter-spacing: 1px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: color 0.1s,background-color 0.1s,padding 0.2s ease-in;
+  color: #000;
+}
+
+.item:not(.disabled) > a::before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #000;
+  transform-origin: right top;
+  transform: scale(0, 1);
+  transition: color 0.1s,transform 0.2s ease-out;
+}
+
+.item > a:active::before {
+  background-color: #000;
+}
+
+.item > a:hover::before, a:focus::before {
+  transform-origin: left top;
+  transform: scale(1, 1);
+}
+
+.mat-paginator{
+}
+
+.disabled {
+  cursor: not-allowed !important;
+  opacity: 0.3;
+  text-decoration: none;
+}
+
+#logo {
+  background-color: goldenrod;
+  color: white;
+  display: block;
+  height: 1em;
+  padding-top: 20px;
+}
+
+.login-button > button, .logout-button > button {
+  margin:0 auto;
+  display:block;
+}
+
+.logout-button {
+  margin-bottom: 30px;
+}
+
+.loading-spinner > mat-spinner {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}

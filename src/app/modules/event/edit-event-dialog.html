@@ -1,0 +1,43 @@
+<div mat-dialog-content>
+  <mat-form-field class="full-width">
+    <mat-label>Загаловак</mat-label>
+    <input matInput [(ngModel)]="model.title">
+  </mat-form-field>
+  <br>
+  <mat-form-field class="full-width">
+    <mat-label>Катэгорыі</mat-label>
+    <mat-select [(ngModel)]="model.tags" multiple>
+      <mat-option *ngFor="let tag of objectKeys(eventTypeMapping)" [value]="tag">{{eventTypeMapping[tag]}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-tab-group>
+      <mat-tab *ngFor="let date of model.dates" [label]="dateStrings[model.dates.indexOf(date)]">
+        <div *ngIf="date.day" class="full-width">
+          <mat-form-field color="primary" class="event-date">
+            <input matInput (dateInput)="updateDates($event, model.dates.indexOf(date), 0)" autocomplete="off" [matDatepicker]="picker1" [value]="dates[model.dates.indexOf(date)][0]">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 color="accent"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="flex-container event-dates"  *ngIf="date.start">
+            <mat-form-field color="primary" class="event-date">
+              <mat-label>з</mat-label>
+              <input matInput (dateInput)="updateDates($event, model.dates.indexOf(date), 0)" autocomplete="off" [matDatepicker]="picker1" [value]="dates[model.dates.indexOf(date)][0]">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 color="accent"></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field color="primary" class="event-date">
+              <mat-label>па</mat-label>
+              <input matInput  (dateInput)="updateDates($event, model.dates.indexOf(date), 1)" autocomplete="off" [matDatepicker]="picker2" [value]="dates[model.dates.indexOf(date)][1]">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 color="accent"></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+      </mat-tab>
+  </mat-tab-group>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" cdkFocusInitial>Адмена</button>
+  <button mat-button [mat-dialog-close]="model">Пацвердзіць</button>
+</div>

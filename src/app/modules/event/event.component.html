@@ -1,0 +1,67 @@
+<div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <div class="event-image" [style.backgroundSize]="'cover'" [ngStyle]="imageStyle"></div>
+            <div class="container">
+                <h5 class="event-title">{{title}}</h5>
+                <div class="event-dates">
+                  <p *ngFor="let date of dates">{{date}}</p>
+                </div>
+                <div class="event-tags">
+                  <div class="event-tag" *ngFor="let eventType of eventTypes">{{eventType}}</div>
+                </div>
+            </div>
+            <span class="pulse"></span>
+        </div>
+        <div class="overlay">
+            <div class = "items head">
+              <div class="event-description" [innerHTML]="description.join('<br>')">
+              </div>
+              <hr>
+            </div>
+            <div class="event-place items head" *ngIf="place">
+              {{place}}<br *ngIf="address"><span *ngIf="address">({{address}})</span>
+              <div class="event-actions"  *ngIf="place">
+                <ul>
+                  <li>
+                    <div class="menu-item">
+                      <a mat-icon-button href="{{Model.url}}" target="_blank">
+                        <mat-icon>more</mat-icon>
+                        <span>Крыніца</span>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          <div class="items head event-actions"  *ngIf="!place">
+            <ul>
+              <li>
+                <div class="menu-item">
+                  <a mat-icon-button href="{{Model.url}}" target="_blank">
+                    <mat-icon>more</mat-icon>
+                    <span>Крыніца</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="items head">
+            <div class="event-fix-actions">
+              <div class="menu-item">
+                <button mat-button  (click)="editEvent()">
+                  <mat-icon>edit</mat-icon>
+                  <p>Выправіць</p>
+                </button>
+              </div>
+              <div class="menu-item">
+                <button mat-button  (click)="excludeEvent()">
+                  <mat-icon>highlight_off</mat-icon>
+                  <p>Не падзея</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

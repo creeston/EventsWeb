@@ -1,0 +1,64 @@
+<div id="title">
+  <h1>Падзеі</h1>
+    <ul class="flex-container city-menu">
+      <li class="item"><a href="#">Менска</a></li>
+      <li class="item disabled"><a href="#">Гародні</a></li>
+      <li class="item disabled"><a href="#">Брэста</a></li>
+    </ul>
+</div>
+
+<div class="login-button">
+  <button mat-raised-button color="primary" (click)="signIn()" *ngIf="!authenticated">Увайсці</button>
+</div>
+
+<div *ngIf="authenticated">
+  <div id="filters" class="flex-container">
+    <mat-form-field color="primary">
+      <mat-label>Калі?</mat-label>
+      <input matInput autocomplete="off" [matDatepicker]="picker1" (dateInput)="getEvents($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1 color="accent"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Тып падзей</mat-label>
+      <mat-select [formControl]="toppings" multiple>
+        <mat-select-trigger>
+          {{toppings.value ? toppings.value[0] : ''}}
+          <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
+        (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <ul id="filter-checkboxes">
+      <li>
+        <mat-checkbox [(ngModel)]="filters.free">Бескаштоўна</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox [(ngModel)]="filters.child">Для дзяцей</mat-checkbox>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div id="events" class="flex-container" *ngIf="!loading">
+      <app-event  *ngFor="let event of events" [Model]="event" (refreshEventList)="removeEvent($event)"></app-event>
+  </div>
+<!--  <div id="events" class="flex-container">-->
+<!--    <ng-container *ngIf="dataSource.page$ | async as page">-->
+<!--      <app-event  *ngFor="let event of page.content" [Model]="event" (refreshEventList)="refreshEvents()"></app-event>-->
+<!--    </ng-container>-->
+<!--  </div>-->
+<!--  <mat-paginator *ngIf="dataSource.page$ | async as page"-->
+<!--                 [length]="page.totalElements" [pageSize]="page.size"-->
+<!--                 [pageIndex]="page.number" [hidePageSize]="true"-->
+<!--                 (page)="dataSource.fetch($event.pageIndex)">-->
+<!--  </mat-paginator>-->
+</div>
+
+<div class="logout-button">
+  <button mat-raised-button color="accent"  (click)="signOut()" *ngIf="authenticated">Выйсці</button>
+</div>
