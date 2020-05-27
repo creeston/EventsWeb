@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {EditEventDialogComponent, EventComponent, RemoveEventDialogComponent} from './event.component';
+import { EventComponent, RemoveEventDialogComponent, ThankYouComponent} from './event.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditEventDialogComponent } from './edit-event.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 
 const COMPONENTS = [
   EventComponent,
   EditEventDialogComponent,
-  RemoveEventDialogComponent
+  RemoveEventDialogComponent,
+  ThankYouComponent
 ];
 
 export const routes = [
@@ -27,7 +30,7 @@ export const routes = [
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   exports: COMPONENTS
 })

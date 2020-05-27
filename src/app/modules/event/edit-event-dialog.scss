@@ -3,7 +3,7 @@
 }
 
 .event-date {
-  width: 40%;
+  width: 160px;
 }
 
 .flex-container {
@@ -12,3 +12,24 @@
   justify-content: space-around;
 }
 
+.datetime {
+  width: 160px;
+  float: left;
+}
+
+.hour {
+  width: 80px;
+}
+
+.minute  {
+  width: 80px;
+}
+
+.add-button {
+  float: left;
+  line-height: 120px;
+
+}
+
+.remove-button {
+}

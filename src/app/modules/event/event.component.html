@@ -4,11 +4,17 @@
             <div class="event-image" [style.backgroundSize]="'cover'" [ngStyle]="imageStyle"></div>
             <div class="container">
                 <h5 class="event-title">{{title}}</h5>
-                <div class="event-dates">
-                  <p *ngFor="let date of dates">{{date}}</p>
-                </div>
+                  <div class="event-dates">
+                    <p>{{date}}</p>
+                  </div>
+                  <div class="event-cost" *ngIf="cost">
+                    <p>{{cost}}</p>
+                  </div>
+
                 <div class="event-tags">
-                  <div class="event-tag" *ngFor="let eventType of eventTypes">{{eventType}}</div>
+                  <div class="event-tag" *ngFor="let eventType of eventTypes">
+                    {{eventType}}
+                  </div>
                 </div>
             </div>
             <span class="pulse"></span>

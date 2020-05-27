@@ -1,5 +1,9 @@
+<app-navbar></app-navbar>
 <div id="title">
-  <h1>Падзеі</h1>
+  <div class="logo-container">
+    <img width="50" src="assets/logo.png" class="logo-image"/>
+    <span class="logo-text">Падзеі</span>
+  </div>
     <ul class="flex-container city-menu">
       <li class="item"><a href="#">Менска</a></li>
       <li class="item disabled"><a href="#">Гародні</a></li>
@@ -21,22 +25,18 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Тып падзей</mat-label>
-      <mat-select [formControl]="toppings" multiple>
-        <mat-select-trigger>
-          {{toppings.value ? toppings.value[0] : ''}}
-          <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
-        (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
-      </span>
-        </mat-select-trigger>
-        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+      <mat-select [formControl]="eventTypes" multiple (selectionChange)="onTypeChange($event)">
+        <mat-option *ngFor="let eventType of eventTypeList" [value]="eventType">
+          {{eventTypeMapping[eventType]}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
     <ul id="filter-checkboxes">
       <li>
-        <mat-checkbox [(ngModel)]="filters.free">Бескаштоўна</mat-checkbox>
+        <mat-checkbox [(ngModel)]="filters.free" (change)="filterEvents()">Бескаштоўна</mat-checkbox>
       </li>
       <li>
-        <mat-checkbox [(ngModel)]="filters.child">Для дзяцей</mat-checkbox>
+        <mat-checkbox [(ngModel)]="filters.kids" (change)="filterEvents()">Для дзяцей</mat-checkbox>
       </li>
     </ul>
   </div>
@@ -45,18 +45,8 @@
     <mat-spinner></mat-spinner>
   </div>
   <div id="events" class="flex-container" *ngIf="!loading">
-      <app-event  *ngFor="let event of events" [Model]="event" (refreshEventList)="removeEvent($event)"></app-event>
+      <app-event  *ngFor="let event of filteredEvents" [Model]="event" (refreshEventList)="removeEvent($event)"></app-event>
   </div>
-<!--  <div id="events" class="flex-container">-->
-<!--    <ng-container *ngIf="dataSource.page$ | async as page">-->
-<!--      <app-event  *ngFor="let event of page.content" [Model]="event" (refreshEventList)="refreshEvents()"></app-event>-->
-<!--    </ng-container>-->
-<!--  </div>-->
-<!--  <mat-paginator *ngIf="dataSource.page$ | async as page"-->
-<!--                 [length]="page.totalElements" [pageSize]="page.size"-->
-<!--                 [pageIndex]="page.number" [hidePageSize]="true"-->
-<!--                 (page)="dataSource.fetch($event.pageIndex)">-->
-<!--  </mat-paginator>-->
 </div>
 
 <div class="logout-button">

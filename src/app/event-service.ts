@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import * as Auth0 from 'auth0-web';
+import { Moment } from 'moment';
 
 @Injectable()
 export class EventService {
@@ -10,46 +11,23 @@ export class EventService {
 
   constructor(private httpClient: HttpClient) { }
 
-  list(date: Date): Observable<Event[]> {
-    const values = date.toLocaleDateString().split('/');
-    const month = +values[0];
-    const day = +values[1];
-    const year = +values[2];
+  list(date: any): Observable<Event[]> {
+    const values = date._i.split('-');
+    const year = +values[0];
+    const month = +values[1];
+    const day = +values[2];
 
     const body = {day, month, year};
     return this.httpClient.post(this.apiUrl + 'events', body, this.getHttpOptions())
       .pipe(map((result: Event[]) => result));
   }
-  //
-  // page(request: PageRequest<Event>): Observable<Page<Event>> {
-  //   const params = {
-  //     pageNumber: request.page,
-  //     pageSize: request.size,
-  //   };
-  //   const year = request.date.getUTCFullYear();
-  //   const month = request.date.getUTCMonth() + 1;
-  //   const day = request.date.getUTCDate() + 1;
-  //   const token = Auth0.getAccessToken();
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       "Authorization": `Bearer ${token}`
-  //     })
-  //   };
-  //
-  //   const body = {day, month, year};
-  //   return this.httpClient.post(this.apiUrl + 'events', body, httpOptions)
-  //     .pipe(map((result: Event[]) => {
-  //       return {
-  //         content: result,
-  //         size: 0,
-  //         number: 0,
-  //         totalElements: 2
-  //       };
-  //     }));
-  // }
 
   excludeEvent(eventId) {
     return this.httpClient.post(this.apiUrl + 'events/exclude', {event_id: eventId}, this.getHttpOptions());
+  }
+
+  updateEvent(event: Event, originalEvent: Event) {
+    return this.httpClient.post(this.apiUrl + 'events/modify', [event, originalEvent], this.getHttpOptions());
   }
 
   getHttpOptions() {
@@ -70,8 +48,10 @@ export class Event {
     public poster: string,
     public description: string,
     public place: any,
+    public cost: number[],
     public tags: string[],
-    public dates: any[]) {
+    public dates: any[],
+    public source_event_id) {
   }
 }
 
