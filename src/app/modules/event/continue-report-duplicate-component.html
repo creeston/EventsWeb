@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+  <h4>{{duplicateEvents.length}} падзей былі абраны ў якасці дублікатаў.</h4>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" cdkFocusInitial>Адмена</button>
+  <button mat-button [mat-dialog-close]="true">Абраць яшчэ</button>
+  <button mat-button (click)="onFinish()">Скончыць</button>
+</div>

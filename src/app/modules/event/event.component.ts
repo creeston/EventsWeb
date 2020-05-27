@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { Event, EventService } from '../../event-service';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {EditEventDialogComponent, toDateString} from './edit-event.component';
-
+import { EditEventDialogComponent, toDateString } from './edit-event.component';
+import { currentDuplicates } from './common';
 
 export const eventTypeMapping = {
   online: 'Анлайн',
@@ -133,6 +133,33 @@ export class EventComponent implements OnInit {
     this.setFields();
   }
 
+  reportDuplicateEvent() {
+    const self = this;
+    if (currentDuplicates.length === 0) {
+      const dialogRef = this.dialog.open(ReportDuplicateComponent, {width: '300px'});
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          currentDuplicates.push(self.Model);
+        }
+      });
+    } else {
+      currentDuplicates.push(self.Model);
+      const dialogRef = this.dialog.open(ContinueReportDuplicateComponent, {
+        width: '400px', data: {refreshEvents: this.refreshEventList}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (!result) {
+          if (currentDuplicates.length === 0) {
+            this.snackBar.openFromComponent(ThankYouComponent, {duration: 4 * 1000});
+          } else {
+            currentDuplicates.splice(0, currentDuplicates.length);
+          }
+        }
+      });
+    }
+
+  }
+
   excludeEvent() {
     const self = this;
     const dialogRef = this.dialog.open(RemoveEventDialogComponent, {width: '200px'});
@@ -176,7 +203,7 @@ export class EventComponent implements OnInit {
 export class RemoveEventDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<EditEventDialogComponent>) {
+    public dialogRef: MatDialogRef<RemoveEventDialogComponent>) {
   }
 
   onNoClick(): void {
@@ -189,3 +216,49 @@ export class RemoveEventDialogComponent {
   templateUrl: 'thank-you-snack-component.html',
 })
 export class ThankYouComponent {}
+
+
+@Component({
+  selector: 'app-report-duplicate',
+  templateUrl: 'report-duplicate-component.html',
+})
+export class ReportDuplicateComponent {
+  constructor(
+    public dialogRef: MatDialogRef<ReportDuplicateComponent>) {
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+export class ReportDuplicateEventData {
+  refreshEvents: EventEmitter<Event>;
+}
+
+@Component({
+  selector: 'app-continue-report-duplicate',
+  templateUrl: 'continue-report-duplicate-component.html',
+})
+export class ContinueReportDuplicateComponent {
+  duplicateEvents = currentDuplicates;
+  constructor(
+    public dialogRef: MatDialogRef<ReportDuplicateComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: ReportDuplicateEventData,
+    private eventService: EventService) {
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onFinish(): void {
+    this.eventService.reportDuplicates(currentDuplicates).subscribe(r => {
+      if (r) {
+        for (let i = 1; i < currentDuplicates.length; i++) {
+          this.data.refreshEvents.emit(currentDuplicates[i]);
+        }
+      }
+      currentDuplicates.splice(0, currentDuplicates.length);
+      this.dialogRef.close();
+    });
+  }
+}

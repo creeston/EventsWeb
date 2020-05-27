@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { EventComponent, RemoveEventDialogComponent, ThankYouComponent} from './event.component';
+import {
+  ContinueReportDuplicateComponent,
+  EventComponent,
+  RemoveEventDialogComponent,
+  ReportDuplicateComponent,
+  ThankYouComponent
+} from './event.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +19,9 @@ const COMPONENTS = [
   EventComponent,
   EditEventDialogComponent,
   RemoveEventDialogComponent,
-  ThankYouComponent
+  ThankYouComponent,
+  ReportDuplicateComponent,
+  ContinueReportDuplicateComponent
 ];
 
 export const routes = [

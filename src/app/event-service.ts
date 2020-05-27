@@ -22,6 +22,10 @@ export class EventService {
       .pipe(map((result: Event[]) => result));
   }
 
+  reportDuplicates(events: Event[]) {
+    return this.httpClient.post(this.apiUrl + 'events/duplicate', events, this.getHttpOptions());
+  }
+
   excludeEvent(eventId) {
     return this.httpClient.post(this.apiUrl + 'events/exclude', {event_id: eventId}, this.getHttpOptions());
   }

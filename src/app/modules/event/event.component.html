@@ -45,7 +45,7 @@
               <li>
                 <div class="menu-item">
                   <a mat-icon-button href="{{Model.url}}" target="_blank">
-                    <mat-icon>more</mat-icon>
+                    <mat-icon>link</mat-icon>
                     <span>Крыніца</span>
                   </a>
                 </div>
@@ -58,6 +58,12 @@
                 <button mat-button  (click)="editEvent()">
                   <mat-icon>edit</mat-icon>
                   <p>Выправіць</p>
+                </button>
+              </div>
+              <div class="menu-item">
+                <button mat-button  (click)="reportDuplicateEvent()">
+                  <mat-icon>flip</mat-icon>
+                  <p>Гэта дублікат</p>
                 </button>
               </div>
               <div class="menu-item">
