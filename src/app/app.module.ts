@@ -70,7 +70,7 @@ export class AppModule {
       domain: 'dev-rb27frp3.eu.auth0.com',
       audience: 'events-api',
       clientID: 'Ln6J40WOoH2R5ya043dkp7tLK0zxXU1Q',
-      redirectUri: 'http://localhost:4200/callback',
+      redirectUri: 'https://creeston.github.io/EventsWeb/callback',
       scope: 'openid profile manage:events'
     });
   }
