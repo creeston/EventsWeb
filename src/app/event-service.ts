@@ -7,7 +7,7 @@ import { Moment } from 'moment';
 
 @Injectable()
 export class EventService {
-  apiUrl = 'http://127.0.0.1:5000/';
+  apiUrl = 'https://events-api-dev.azurewebsites.net/'//'http://127.0.0.1:5000/';
 
   constructor(private httpClient: HttpClient) { }
 
