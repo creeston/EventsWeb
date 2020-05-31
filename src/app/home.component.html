@@ -31,12 +31,17 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <ul id="filter-checkboxes">
+    <ul class="filter-checkboxes">
       <li>
         <mat-checkbox [(ngModel)]="filters.free" (change)="filterEvents()">Бескаштоўна</mat-checkbox>
       </li>
       <li>
         <mat-checkbox [(ngModel)]="filters.kids" (change)="filterEvents()">Для дзяцей</mat-checkbox>
+      </li>
+    </ul>
+    <ul class="filter-checkboxes">
+      <li>
+        <mat-checkbox [(ngModel)]="filters.online" (change)="filterEvents()">Анлайн</mat-checkbox>
       </li>
     </ul>
   </div>

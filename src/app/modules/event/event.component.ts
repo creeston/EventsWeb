@@ -18,11 +18,12 @@ export const eventTypeMapping = {
   concert_programm: 'Канцэртная праграма',
   market: 'Кірмаш',
   lecture: 'Лекцыя',
+  kids: 'Для дзяцей',
   view: 'Прагляд',
   compete: 'Спаборніцтва',
   sport: 'Спорт',
   standup: 'Стэндап',
-  theatre: 'Тэатр',
+  theater: 'Тэатр',
   festival: 'Фэст',
   show: 'Шоў',
 };

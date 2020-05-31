@@ -24,11 +24,11 @@ h1 {
 }
 
 #filters {
-  width: 50%;
+  width: 55%;
   margin: 20px auto;
 }
 
-#filter-checkboxes {
+.filter-checkboxes {
   list-style-type: none;
   margin-top: 0;
 }
@@ -110,7 +110,7 @@ ol, ul {
 }
 
 .login-button > button, .logout-button > button {
-  margin:0 auto;
+  margin: 0 auto;
   display:block;
 }
 

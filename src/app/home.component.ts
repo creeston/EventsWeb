@@ -19,7 +19,7 @@ import {toDateObject} from './modules/event/edit-event.component';
 })
 export class HomeComponent  implements OnInit{
   filters: any = {
-    free: false, kids: false
+    free: false, kids: false, online: false
   };
   eventTypes = new FormControl();
   authenticated = false;
@@ -34,7 +34,8 @@ export class HomeComponent  implements OnInit{
   eventTypeMapping = eventTypeMapping;
   notEventType = [
     'free',
-    'kids'
+    'kids',
+    'online'
   ];
 
   onTypeChange(e) {
@@ -62,10 +63,13 @@ export class HomeComponent  implements OnInit{
     this.filteredEvents = [];
     for (const event of this.events) {
       if (this.filters.free && event.tags.indexOf('free') === -1) {
-        return;
+        continue;
       }
       if (this.filters.kids && event.tags.indexOf('kids') === -1) {
-        return;
+        continue;
+      }
+      if (this.filters.online && event.tags.indexOf('online') === -1) {
+        continue;
       }
       if (!this.eventTypes.value || this.eventTypes.value.length === 0) {
         this.filteredEvents.push(event);
